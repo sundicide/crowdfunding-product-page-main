@@ -42,6 +42,86 @@
       cursor: pointer;
       width: 100px;
     }
+    .main {
+      display: flex;
+      flex-direction: column;
+    }
+    .section-wrapper {
+      margin-top: -80px;
+    }
+    section {
+      align-items: center;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      margin: 20px auto;
+      padding: 20px;
+      position: relative;
+      width: 50%;
+      z-index: 2;
+    }
+    .section__subtitle {
+      color: hsl(0, 0%, 48%);
+      margin: 0;
+      margin-bottom: 20px;
+    }
+    .mastercraft-logo {
+      position: absolute;
+      top: -25px;
+    }
+    .section-bottom {
+      align-items: center;
+      height: 70px;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      width: 100%;
+    }
+    .section-bottom button {
+      border-radius: 40px;
+      color: white;
+      cursor: pointer;
+      height: 56px;
+      width: 150px;
+    }
+    .back-button {
+      background-color: hsl(176, 72%, 28%);
+    }
+    .bookmark-wrapper {
+      display: flex;
+      position: relative;
+    }
+    .bookmark-icon {
+      left: -10%;
+      position: absolute;
+    }
+    .bookmark-button {
+      background-color: hsl(0, 0%, 48%);
+    }
+    .section-statistics .numbers {
+      display: flex;
+      justify-content: space-around;
+      flex-direction: row;
+      width: 100%;
+    }
+    .section-statistics .numbers > div {
+      margin: 10px;
+      width: 100%;
+    }
+    .section-statistics .numbers > div:first-child {
+      border-right: 1px solid black;
+    }
+    .section-statistics .numbers > div:nth-child(2) {
+      width: 100%;
+    }
+    .section-statistics .numbers > div:last-child {
+      border-left: 1px solid black;
+    }
+    .section-statistics .numbers > div .subtitle {
+      color: hsl(0, 0%, 48%);
+    }
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
   </style>
@@ -57,46 +137,84 @@
       </div>
     </div>
   </header>
+  <main class="main">
+    <div class="section-wrapper">
+      <section class="main-section">
+        <img class="mastercraft-logo" src="images/logo-mastercraft.svg"/>
+        <h1>
+          Mastercraft Bamboo Monitor Riser
+        </h1>
+        <h4 class="section__subtitle">
+          A beautiful & handcrafted monitor stand to reduce neck and eye strain.
+        </h4>
+        <div class="section-bottom">
+          <button class="back-button">
+            Back this project
+          </button>
+          <div class="bookmark-wrapper">
+            <img class="bookmark-icon" src="images/icon-bookmark.svg" />
+            <button class="bookmark-button">
+              Bookmark
+            </button>
+          </div>
+        </div>
+      </section>
+      <section class="section-statistics">
+        <div class="numbers">
+          <div>
+            <h2> $89,914 </h2>
+            <h5 class=subtitle> of $100,000 backed </h5>
+          </div>
+          <div>
+            <h2> 5,007 </h2>
+            <h5 class=subtitle> total backers </h5>
+          </div>
+          <div>
+            <h2> 56 </h2>
+            <h5 class=subtitle> days left </h5>
+          </div>
+        </div>
+        <div>
 
-  Mastercraft Bamboo Monitor Riser
-  A beautiful & handcrafted monitor stand to reduce neck and eye strain.
+        </div>
+      </section>
+      <section>
+        About this project
 
-  Back this project
-  Bookmark
+        The Mastercraft Bamboo Monitor Riser is a sturdy and stylish platform that elevates your screen
+        to a more comfortable viewing height. Placing your monitor at eye level has the potential to improve
+        your posture and make you more comfortable while at work, helping you stay focused on the task at hand.
 
-  $89,914 of $100,000 backed
-  5,007 total backers
-  56 days left
+            Featuring artisan craftsmanship, the simplicity of design creates extra desk space below your computer
+            to allow notepads, pens, and USB sticks to be stored under the stand.
 
-  About this project
+            Bamboo Stand
+            Pledge $25 or more
+            You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
+            you’ll be added to a special Backer member list.
+            101 left
+            Select Reward
 
-  The Mastercraft Bamboo Monitor Riser is a sturdy and stylish platform that elevates your screen
-  to a more comfortable viewing height. Placing your monitor at eye level has the potential to improve
-  your posture and make you more comfortable while at work, helping you stay focused on the task at hand.
+            Black Edition Stand
+            Pledge $75 or more
+            You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer
+            member list. Shipping is included.
+            64 left
+            Select Reward
 
-  Featuring artisan craftsmanship, the simplicity of design creates extra desk space below your computer
-  to allow notepads, pens, and USB sticks to be stored under the stand.
+            Mahogany Special Edition
+            Pledge $200 or more
+            You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added
+            to our Backer member list. Shipping is included.
+            0 left
+            Out of Stock
+          </section>
+      </div>
+  </main>
 
-  Bamboo Stand
-  Pledge $25 or more
-  You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
-  you’ll be added to a special Backer member list.
-  101 left
-  Select Reward
 
-  Black Edition Stand
-  Pledge $75 or more
-  You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer
-  member list. Shipping is included.
-  64 left
-  Select Reward
 
-  Mahogany Special Edition
-  Pledge $200 or more
-  You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added
-  to our Backer member list. Shipping is included.
-  0 left
-  Out of Stock
+
 
   <!-- Selection modal start -->
 
