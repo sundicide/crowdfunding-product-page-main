@@ -6,7 +6,7 @@
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Commissioner">
+          href="https://fonts.googleapis.com/css?family=Commissioner:500,700,800">
 
 
   <title>Frontend Mentor | Crowdfunding product page</title>
@@ -14,11 +14,24 @@
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
   <style>
     body {
-      width: 1440px;
+      background-color: #ededed;
       display: flex;
       flex-direction: column;
       margin: auto;
-      font-family: "Commissioner"
+      font-family: "Commissioner";
+      width: 1440px;
+    }
+    button {
+      background-color: hsl(176, 50%, 47%);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      height: 48px;
+      min-width: 150px;
+    }
+    button:hover {
+      background-color: hsl(176, 72%, 28%);
     }
     .header {
       background-image: url("./images/image-hero-desktop.jpg");
@@ -53,11 +66,11 @@
       align-items: center;
       background-color: white;
       border-radius: 10px;
-      box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
       display: flex;
       flex-direction: column;
       margin: 20px auto;
-      padding: 20px;
+      padding: 25px;
       position: relative;
       width: 50%;
       z-index: 2;
@@ -80,25 +93,37 @@
       width: 100%;
     }
     .section-bottom button {
-      border-radius: 40px;
-      color: white;
-      cursor: pointer;
       height: 56px;
-      width: 150px;
     }
-    .back-button {
-      background-color: hsl(176, 72%, 28%);
+    progress {
+      height: 12px;
+      margin: 20px;
+      width: 100%;
+    }
+    progress::-moz-progress-bar {
+      background: hsl(176, 50%, 47%);
+      border-radius: 99px;
+    }
+    progress::-webkit-progress-value {
+      background: hsl(176, 50%, 47%);
+      border-radius: 99px;
+    }
+    progress {
+      color: hsl(176, 50%, 47%);
+      border-radius: 99px;
     }
     .bookmark-wrapper {
       display: flex;
       position: relative;
     }
     .bookmark-icon {
-      left: -10%;
+      left: -5%;
       position: absolute;
     }
     .bookmark-button {
       background-color: hsl(0, 0%, 48%);
+      font-size: 12px;
+      padding-left: 40px;
     }
     .section-statistics .numbers {
       display: flex;
@@ -110,17 +135,76 @@
       margin: 10px;
       width: 100%;
     }
-    .section-statistics .numbers > div:first-child {
-      border-right: 1px solid black;
-    }
-    .section-statistics .numbers > div:nth-child(2) {
-      width: 100%;
-    }
-    .section-statistics .numbers > div:last-child {
+    .section-statistics .numbers > div.divider {
       border-left: 1px solid black;
+      width: 20%;
     }
     .section-statistics .numbers > div .subtitle {
       color: hsl(0, 0%, 48%);
+    }
+    .section-statistics .numbers .main {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 10px 0px;
+    }
+    .section-statistics .numbers .sub {
+      font-size: 16px;
+      color: hsl(0, 0%, 48%);
+    }
+    .main-section button {
+      font-size: 16px;
+    }
+    .main-section .backthisproject-button {
+      width: 200px;
+    }
+    .subtitle {
+      font-weight: 600;
+      font-size: 24px;
+      margin: 0;
+      width: 100%;
+    }
+    .contents {
+      color: hsl(0, 0%, 48%);
+      font-weight: 400;
+    }
+    .card {
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      padding: 25px;
+      margin: 20px;
+    }
+    .card.disabled {
+      opacity: 0.4;
+    }
+    .card-top {
+      display: grid;
+      grid-template-columns: 70% 30%;
+      margin: 10px 0px;
+    }
+    .card-top a {
+      align-self: center;
+      color: hsl(176, 50%, 47%);
+      display: flex;
+      justify-content: center;
+      text-decoration: none;
+    }
+    .card-middle {
+      color: hsl(0, 0%, 48%);
+      font-size: 15px;
+      margin: 40px 0px;
+    }
+    .card-bottom {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .card-bottom__value {
+      font-size: 32px;
+      font-weight: 700;
+    }
+    .card-bottom__postfix {
+      color: grey;
+      vertical-align: super;
     }
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
@@ -148,7 +232,7 @@
           A beautiful & handcrafted monitor stand to reduce neck and eye strain.
         </h4>
         <div class="section-bottom">
-          <button class="back-button">
+          <button class="backthisproject-button">
             Back this project
           </button>
           <div class="bookmark-wrapper">
@@ -162,52 +246,102 @@
       <section class="section-statistics">
         <div class="numbers">
           <div>
-            <h2> $89,914 </h2>
-            <h5 class=subtitle> of $100,000 backed </h5>
+            <span class="main"> $89,914 </span>
+            <span class="sub"> of $100,000 backed </span>
           </div>
+          <div class="divider"></div>
           <div>
-            <h2> 5,007 </h2>
-            <h5 class=subtitle> total backers </h5>
+            <span class="main"> 5,007 </span>
+            <span class="sub">  total backers </span>
           </div>
+          <div class="divider"></div>
           <div>
-            <h2> 56 </h2>
-            <h5 class=subtitle> days left </h5>
+            <span class="main"> 56 </span>
+            <span class="sub"> days left </span>
           </div>
         </div>
+        <progress max="100" value="70"></progress>
         <div>
 
         </div>
       </section>
       <section>
-        About this project
-
-        The Mastercraft Bamboo Monitor Riser is a sturdy and stylish platform that elevates your screen
-        to a more comfortable viewing height. Placing your monitor at eye level has the potential to improve
-        your posture and make you more comfortable while at work, helping you stay focused on the task at hand.
-
+        <p class="subtitle"> About this project </p>
+        <div class="contents">
+          <p>
+            The Mastercraft Bamboo Monitor Riser is a sturdy and stylish platform that elevates your screen
+            to a more comfortable viewing height. Placing your monitor at eye level has the potential to improve
+            your posture and make you more comfortable while at work, helping you stay focused on the task at hand.
+          </p>
+          <p>
             Featuring artisan craftsmanship, the simplicity of design creates extra desk space below your computer
             to allow notepads, pens, and USB sticks to be stored under the stand.
-
-            Bamboo Stand
-            Pledge $25 or more
-            You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
-            you’ll be added to a special Backer member list.
-            101 left
-            Select Reward
-
-            Black Edition Stand
-            Pledge $75 or more
-            You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer
-            member list. Shipping is included.
-            64 left
-            Select Reward
-
-            Mahogany Special Edition
-            Pledge $200 or more
-            You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added
-            to our Backer member list. Shipping is included.
-            0 left
-            Out of Stock
+          </p>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-top">
+              <p class="subtitle"> Bamboo Stand </p>
+              <a href="#">
+                Pledge $25 or more
+              </a>
+            </div>
+            <p class="card-middle">
+              You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
+              you’ll be added to a special Backer member list.
+            </p>
+            <div class="card-bottom">
+              <div>
+                <span class="card-bottom__value">101</span>
+                <span class="card-bottom__postfix">left</span>
+              </div>
+              <div>
+                <button> Select Reward </button>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-top">
+              <p class="subtitle">  Black Edition Stand </p>
+              <a href="#">
+                Pledge $75 or more
+              </a>
+            </div>
+            <p class="subtitle"></p>
+            <p class="card-middle">
+              You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer
+              member list. Shipping is included.
+            </p>
+            <div class="card-bottom">
+              <div>
+                <span class="card-bottom__value">64</span>
+                <span class="card-bottom__postfix">left</span>
+              </div>
+              <div>
+                <button> Select Reward </button>
+              </div>
+            </div>
+          </div>
+          <div class="card disabled">
+            <div class="card-top">
+              <p class="subtitle"> Mahogany Special Edition </p>
+              <a href="#">
+                Pledge $200 or more
+              </a>
+            </div>
+            <p class="card-middle">
+              You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added
+              to our Backer member list. Shipping is included.
+            </p>
+            <div class="card-bottom">
+              <div>
+                <span class="card-bottom__value">0</span>
+                <span class="card-bottom__postfix">left</span>
+              </div>
+              <div> Out of Stock </div>
+            </div>
+          </div>
+        </div>
           </section>
       </div>
   </main>
