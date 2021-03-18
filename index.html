@@ -212,12 +212,16 @@
     .attribution { font-size: 11px; text-align: center; }
     .attribution a { color: hsl(228, 45%, 44%); }
     .modal {
+      display: none;
       position: fixed;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       z-index: 2;
+    }
+    .modal.active {
+      display: block;
     }
     .modal .backdrop {
       background-color: gray;
@@ -243,6 +247,13 @@
       box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
       border-radius: 5px;
       padding: 20px 40px;
+      position: relative;
+    }
+    .modal .contents .close-button {
+      cursor: pointer;
+      position: absolute;
+      right: 50px;
+      top: 50px;
     }
     .modal .contents .title {
       color: black;
@@ -258,12 +269,20 @@
       height: 100%;
       display: grid;
       row-gap: 20px;
-      grid-template-rows: repeat(4, 1fr);
     }
-    .modal .contents .card{
+    .modal .contents .card {
+      cursor: pointer;
       margin: 0px;
       padding: 0px;
+      height: 140px;
       width: 100%;
+    }
+    .modal .contents .card.active {
+      border-width: 2px;
+      border-color: hsl(176, 50%, 47%);
+    }
+    .modal .contents .card.has-pledge.active {
+      height: 240px;
     }
     .modal .contents .card .top-area {
       align-items: baseline;
@@ -271,11 +290,19 @@
       width: 100%;
       flex-grow: 100%;
       padding: 20px 40px;
+      flex: 1;
+    }
+    .modal .contents .card .top-area > div {
+      margin-left: 10px;
+    }
+    .modal .contents .card .top-area .pledge {
+      color: hsl(176, 50%, 47%);
+      margin-left: 10px;
     }
     .modal .contents .card .card-title::before {
       position: absolute;
       left: 10px;
-      content: 'O';
+      content: '•';
       border: 1px solid #ededed;
       color: white;
       border-radius: 50%;
@@ -287,20 +314,41 @@
       color: black;
       font-size: 20px;
     }
-    .modal .contents .card .card-title.active::before {
+    .modal .contents .card .card-title {
+      color: black;
+      font-size: 20px;
+    }
+    .modal .contents .card.active .card-title::before {
       color: hsl(176, 50%, 47%);
     }
-    .modal .contents .card .card-title:hover {
+    .modal .contents .card:hover .card-title {
       color: hsl(176, 50%, 47%);
-      cursor: pointer;
+    }
+    .modal .contents .card:hover .card-title::before {
+      border-color: hsl(176, 50%, 47%);
+    }
+    .modal .contents .card .card-contents {
+      margin-top: 20px;
     }
     .modal .contents .card .counts {
       position: absolute;
-      right: 0;
+      color: black;
+      font-weight: 500;
+      right: 70px;
+    }
+    .modal .contents .card .counts::after {
+      content: 'left';
+      color: gray;
+      position: absolute;
+      left: 30px;
     }
     .modal .contents .card .bottom-area {
       display: none;
+      height: 90px;
       width: 100%;
+    }
+    .modal .contents .card.active .bottom-area {
+      display: block;
     }
     .modal .contents .card .bottom-area .hr {
       border: 1px solid #dedede;
@@ -329,21 +377,50 @@
       left: 25px;
       color: #dedede;
     }
-    .modal .contents .card .bottom-area .selected-pledge button:hover {
+    .modal .contents .card .bottom-area .selected-pledge button.value-button:hover {
+      background-color: hsl(176, 50%, 47%);
+      color: white;
+    }
+    .modal .contents .card .bottom-area .selected-pledge button.continue-button {
       background-color: hsl(176, 50%, 47%);
       color: white;
     }
   </style>
   <script type="text/javascript">
-    function clickPledge(e) {
+    var prevActivated = null;
+    var prevActivatedName = null;
+
+    function clickPledge(e, name) {
       var classList = e.classList;
-      console.log(classList)
       var classActive = "active";
+
+      if (prevActivated) {
+        prevActivated.remove(classActive);
+      }
+
+      if (prevActivatedName === name) {
+        prevActivatedName = null;
+        return;
+      } else {
+        prevActivatedName = name;
+      }
+
       if (Array.from(e.classList).includes(classActive)) {
         classList.remove(classActive);
       } else {
         classList.add(classActive);
+        prevActivated = classList
       }
+    }
+
+    function selectReward() {
+      var modal = document.querySelector("div[class*='modal']");
+      modal.classList.add("active");
+    }
+
+    function closeModal() {
+      var modal = document.querySelector("div[class*='modal']");
+      modal.classList.remove("active");
     }
 
   </script>
@@ -434,7 +511,7 @@
                 <span class="card-bottom__postfix">left</span>
               </div>
               <div>
-                <button> Select Reward </button>
+                <button onclick="selectReward()"> Select Reward </button>
               </div>
             </div>
           </div>
@@ -456,7 +533,7 @@
                 <span class="card-bottom__postfix">left</span>
               </div>
               <div>
-                <button> Select Reward </button>
+                <button onclick="selectReward()"> Select Reward </button>
               </div>
             </div>
           </div>
@@ -494,6 +571,9 @@
     <div class="backdrop"></div>
     <div class="contents-wrapper">
       <div class="contents">
+        <div class="close-button" onclick="closeModal()">
+          <img src="/images/icon-close-modal.svg" />
+        </div>
         <div class="title-wrapper">
           <p class="title"> Back this project </p>
           <p class="sub-title">
@@ -501,10 +581,10 @@
           </p>
         </div>
         <div class="card-wrapper">
-          <section class="card">
+          <section class="card" onclick="clickPledge(this, 'pwnr')">
             <div class="top-area">
               <div>
-                <span class="card-title" onclick="clickPledge(this)">
+                <span class="card-title">
                   Pledge with no reward
                 </span>
               </div>
@@ -514,17 +594,15 @@
               </div>
             </div>
           </section>
-          <section class="card">
+          <section class="card has-pledge" onclick="clickPledge(this, 'bs')">
             <div class="top-area">
               <div>
-                <div class="counts">
-                    101 left
-                </div>
+                <div class="counts"> 101 </div>
                 <div>
                   <span class="card-title">
                     Bamboo Stand
                   </span>
-                  <span>
+                  <span class="pledge">
                     Pledge $25 or more
                   </span>
                 </div>
@@ -543,27 +621,25 @@
                   </span>
                 </div>
                 <div>
-                  <button>
+                  <button class="value-button">
                     <span class="value"> 25 </span>
                   </button>
-                  <button>
+                  <button class="continue-button">
                     <span> Continue </span>
                   </button>
                 </div>
               </div>
             </div>
           </section>
-          <section class="card">
+          <section class="card has-pledge" onclick="clickPledge(this, 'bes')">
             <div class="top-area">
               <div>
-                <div class="counts">
-                    64 left
-                </div>
+                <div class="counts"> 64 </div>
                 <div>
                   <span class="card-title">
                     Black Edition Stand
                   </span>
-                  <span>
+                  <span class="pledge">
                     Pledge $75 or more
                   </span>
                 </div>
@@ -573,24 +649,58 @@
                 member list. Shipping is included.
               </div>
             </div>
+            <div class="bottom-area">
+              <div class="hr"></div>
+              <div class="selected-pledge">
+                <div class="text">
+                  <span>
+                    Enter your pledge
+                  </span>
+                </div>
+                <div>
+                  <button class="value-button">
+                    <span class="value"> 75 </span>
+                  </button>
+                  <button class="continue-button">
+                    <span> Continue </span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </section>
           <section class="card disabled">
             <div class="top-area">
               <div>
+                <div class="counts"> 0 </div>
                 <div>
                   <span class="card-title">
                     Mahogany Special Edition
                   </span>
-                  <span>
+                  <span class="pledge">
                     Pledge $200 or more
                   </span>
-                </div>
-                <div class="counts">
-                    0 left
                 </div>
               </div>
               <div class="card-contents">
                 You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added to our Backer member list. Shipping is included.
+              </div>
+            </div>
+            <div class="bottom-area">
+              <div class="hr"></div>
+              <div class="selected-pledge">
+                <div class="text">
+                  <span>
+                    Enter your pledge
+                  </span>
+                </div>
+                <div>
+                  <button class="value-button">
+                    <span class="value">200</span>
+                  </button>
+                  <button class="continue-button">
+                    <span> Continue </span>
+                  </button>
+                </div>
               </div>
             </div>
           </section>
@@ -598,29 +708,29 @@
       </div>
     </div>
   </div>
-
-
-
-  <!-- Selected pledge start -->
-  Enter your pledge
-  $75
-  Continue
-  <!-- Selected pledge end -->
-
-  <!-- Selected pledge  start -->
-  Enter your pledge
-  $200
-  Continue
-  <!-- Selected pledge end -->
-
-  <!-- Selection modal end -->
-
   <!-- Success modal start -->
-
-  Thanks for your support!
-  Your pledge brings us one step closer to sharing Mastercraft Bamboo Monitor Riser worldwide. You will get
-  an email once our campaign is completed.
-  Got it!
+  <div class="modal complete-modal">
+    <div class="backdrop"></div>
+    <div class="contents-wrapper">
+      <div class="contents" style="height: 350px; width: 500px;">
+        <div>
+          <img src="./images/icon-check.svg" style="display: flex; margin: auto;" />
+          <h2 style="display: flex; justify-content: center; color: black;">
+            Thanks for your support!
+          </h2>
+          <p style="padding: 20px;">
+            Your pledge brings us one step closer to sharing Mastercraft Bamboo Monitor Riser worldwide. You will get
+            an email once our campaign is completed.
+          </p>
+          <div style="height: 50px; display: flex; align-items: center; justify-content: center;">
+            <button onclick="closeModal()" style="min-width: 100px;">
+              Got it!
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Success modal end -->
 </body>
