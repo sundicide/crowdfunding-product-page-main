@@ -9,6 +9,7 @@
           href="https://fonts.googleapis.com/css?family=Commissioner:500,700,800">
   <title>Frontend Mentor | Crowdfunding product page</title>
   <link rel="stylesheet" href="index.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="index.js"></script>
 </head>
 <body>
@@ -79,73 +80,11 @@
             to allow notepads, pens, and USB sticks to be stored under the stand.
           </p>
         </div>
-        <div>
-          <div class="card">
-            <div class="card-top">
-              <p class="subtitle"> Bamboo Stand </p>
-              <a href="#">
-                Pledge $25 or more
-              </a>
-            </div>
-            <p class="card-middle">
-              You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and
-              you’ll be added to a special Backer member list.
-            </p>
-            <div class="card-bottom">
-              <div>
-                <span class="card-bottom__value">101</span>
-                <span class="card-bottom__postfix">left</span>
-              </div>
-              <div>
-                <button onclick="selectReward()"> Select Reward </button>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-top">
-              <p class="subtitle">  Black Edition Stand </p>
-              <a href="#">
-                Pledge $75 or more
-              </a>
-            </div>
-            <p class="subtitle"></p>
-            <p class="card-middle">
-              You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer
-              member list. Shipping is included.
-            </p>
-            <div class="card-bottom">
-              <div>
-                <span class="card-bottom__value">64</span>
-                <span class="card-bottom__postfix">left</span>
-              </div>
-              <div>
-                <button onclick="selectReward()"> Select Reward </button>
-              </div>
-            </div>
-          </div>
-          <div class="card disabled">
-            <div class="card-top">
-              <p class="subtitle"> Mahogany Special Edition </p>
-              <a href="#">
-                Pledge $200 or more
-              </a>
-            </div>
-            <p class="card-middle">
-              You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added
-              to our Backer member list. Shipping is included.
-            </p>
-            <div class="card-bottom">
-              <div>
-                <span class="card-bottom__value">0</span>
-                <span class="card-bottom__postfix">left</span>
-              </div>
-              <div> Out of Stock </div>
-            </div>
-          </div>
-        </div>
+        <div class="dynamic-cards"></div>
           </section>
       </div>
   </main>
+
   <!-- Selection modal start -->
   <div class="modal">
     <div class="backdrop"></div>
